@@ -15,11 +15,13 @@
  * @param subTestName Name of the subtest, e.g. "GET /path/:id"
  */
 export function escapeSubTestName(testFuncName: string, subTestName: string): string {
-	return `${testFuncName}/${subTestName}`
+	const scapedSubTestName = subTestName
 		.replace(/\s/g, '_')
 		.split('/')
 		.map((part) => escapeRegExp(part), '')
 		.join('$/^');
+
+	return `${testFuncName}$/^${scapedSubTestName}`;
 }
 
 // escapeRegExp escapes regex metacharacters.
